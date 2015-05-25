@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.swift
 //  Twitter
@@ -12,7 +13,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -39,6 +40,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        
+        TwitterClient.sharedInstance.fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuth1Credential(queryString: url.query), success: { (accessToken: BDBOAuth1Credential!) -> Void in
+                println("Test success")
+                TwitterClient.sharedInstance.requestSerializer.saveAccessToken(accessToken)
+            
+            TwitterClient.sharedInstance.GET("1.1/account/verify_credentials.json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+               
+                
+                let user = User(dictionary: response as! NSDictionary)
+                
+                    var data = NSJSONSerialization.dataWithJSONObject(user.dictionary, options: nil, error: nil)
+                
+                NSUserDefaults.standardUserDefaults().setObject(data, forKey: "userData")
+                
+               /* var userdata: NSDictionary = [ "userData": user.name,
+                    "url": user.profileImageUrl,
+                    "handle": user.screenname
+                ]
+                
+                println(userdata) */
+                
+                }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                    println("error getting current user")
+                    
+            })
+            }) {(error: NSError!) -> Void in
+                println("Test error")
+            }
+        
+            return true
     }
 
 

@@ -14,6 +14,13 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let user = NSUserDefaults.standardUserDefaults().objectForKey("userData") as? NSData
+        
+        if user != nil {
+            var dictionary = NSJSONSerialization.JSONObjectWithData(user!, options: nil, error: nil) as! NSDictionary
+                
+            self.performSegueWithIdentifier("loginSegue", sender: self)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,6 +28,21 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func onLogin(sender: AnyObject) {
+        
+        println("Button clicked")
+        TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
+        
+        TwitterClient.sharedInstance.fetchRequestTokenWithPath("oauth/request_token", method: "GET", callbackURL: NSURL(string: "cptwitterdemo://oauth" ), scope: nil, success:{ (requestToken:BDBOAuth1Credential!) -> Void in
+                println("Success")
+            var authURL = NSURL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token)")
+            UIApplication.sharedApplication().openURL(authURL!)
+            
+            }) { (error: NSError!) -> Void in
+                println("error")
+                println(error)
+            }
+    }
 
     /*
     // MARK: - Navigation

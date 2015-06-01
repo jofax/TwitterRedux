@@ -31,6 +31,10 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         let imageURL = NSURL(string: dictionary["profile_image_url_https"] as! String)
         
         profileImageView.setImageWithURL(imageURL!)
+        
+        if self.revealViewController() != nil {
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
     }
 
     override func didReceiveMemoryWarning() {

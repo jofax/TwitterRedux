@@ -27,18 +27,6 @@ class MenuTableViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 0
-    }
-
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 0
-    }
-
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
@@ -84,14 +72,42 @@ class MenuTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+       // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        
+        println(segue.identifier)
+        
+        if segue.identifier == "timelineSegue" {
+            let nc = segue.destinationViewController as! UINavigationController
+            
+            let vc = nc.viewControllers[0] as! TimelineViewController
+            vc.title = "Home Timeline"
+            vc.timelineType = "home_timeline"
+        }
+        
+        if segue.identifier == "mentionsSegue" {
+            let nc = segue.destinationViewController as! UINavigationController
+            
+            let vc = nc.viewControllers[0] as! TimelineViewController
+            vc.title = "Mentions"
+            vc.timelineType = "mentions_timeline"
+        }
+        
+        if segue.identifier == "profileSegue" {
+            let vc = segue.destinationViewController as! ProfileViewController
+            
+            let user = NSUserDefaults.standardUserDefaults().objectForKey("userData") as! NSData
+            
+            var dictionary = NSJSONSerialization.JSONObjectWithData(user, options: nil, error: nil) as! NSDictionary
+            
+            vc.id = dictionary["id_str"] as! String
+            vc.screenName = dictionary["screen_name"] as! String
+        }
+
+        
     }
-    */
+
 
 }

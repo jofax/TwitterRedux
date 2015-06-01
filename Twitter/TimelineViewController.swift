@@ -10,10 +10,12 @@ import UIKit
 
 class TimelineViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     var tweets: [NSDictionary]!
     var refreshControl:UIRefreshControl!
     var composeCalled:Bool = false
+    var timelineType = "home_timeline"
     
     @IBOutlet weak var composeButton: UIButton!
     override func viewDidLoad() {
@@ -23,18 +25,25 @@ class TimelineViewController: UIViewController, UITableViewDataSource, UITableVi
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-        TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        TwitterClient.sharedInstance.GET("1.1/statuses/\(timelineType).json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
                 //println(response)
                 self.tweets = response as! [NSDictionary]
                 //println(self.tweets[0])
                 self.tableView.reloadData()
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println("error getting home timeline")
+                println(error)
         })
         
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: "onRefresh", forControlEvents: UIControlEvents.ValueChanged)
         tableView.insertSubview(refreshControl, atIndex: 0)
+        
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = "revealToggle:"
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -43,7 +52,7 @@ class TimelineViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return tweets?.count ?? 0
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -54,7 +63,7 @@ class TimelineViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     func onRefresh() {
-        TwitterClient.sharedInstance.GET("1.1/statuses/home_timeline.json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        TwitterClient.sharedInstance.GET("1.1/statuses/\(timelineType).json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             //println(response)
             self.tweets = response as! [NSDictionary]
             self.tableView.reloadData()
@@ -82,6 +91,10 @@ class TimelineViewController: UIViewController, UITableViewDataSource, UITableVi
         composeCalled = true
     }
 
+    
+    @IBAction func onUserTap(sender: UITapGestureRecognizer) {
+        println("User Tapped")
+    }
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         

@@ -29,6 +29,14 @@ class TweetViewController: UIViewController {
         handleTextLabel.text = handle
         tweetTextLabel.text = tweet
         profileImageView.setImageWithURL(image)
+        
+        if self.revealViewController() != nil {
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+        
+        self.profileImageView.userInteractionEnabled = true
+        var tapGesture = UITapGestureRecognizer(target: self, action: Selector("onImageTap:"))
+        self.profileImageView.addGestureRecognizer(tapGesture)
     }
 
     override func didReceiveMemoryWarning() {
@@ -65,11 +73,15 @@ class TweetViewController: UIViewController {
     }
     
     
-
+    @IBAction func onImageTap(sender: AnyObject) {
+        println("Image Tapped")
+        performSegueWithIdentifier("showProfileSegue", sender: self)
+    }
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        let vc = segue.destinationViewController as! ProfileViewController
+        vc.id = self.id
+        vc.screenName = self.handle
     }
 
 }

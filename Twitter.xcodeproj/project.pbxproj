@@ -18,6 +18,9 @@
 		B178FA191B0FF17E00159F6F /* TwitterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B178FA181B0FF17E00159F6F /* TwitterTests.swift */; };
 		B178FA271B0FF47A00159F6F /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B178FA261B0FF47A00159F6F /* TwitterClient.swift */; };
 		B178FA291B10DCDD00159F6F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B178FA281B10DCDD00159F6F /* LoginViewController.swift */; };
+		B18829121B1BC5FB0036359E /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B18829111B1BC5FB0036359E /* SWRevealViewController.m */; };
+		B18829191B1BE7530036359E /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18829181B1BE7530036359E /* MenuTableViewController.swift */; };
+		B188291B1B1BF2000036359E /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B188291A1B1BF2000036359E /* ProfileViewController.swift */; };
 		B1A4CF451B12507300C83729 /* TweetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A4CF441B12507300C83729 /* TweetViewController.swift */; };
 		B1DA06EC1B11F3BD00345CA7 /* ComposeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1DA06EB1B11F3BD00345CA7 /* ComposeViewController.swift */; };
 /* End PBXBuildFile section */
@@ -51,6 +54,10 @@
 		B178FA221B0FF3A500159F6F /* Twitter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Twitter-Bridging-Header.h"; sourceTree = "<group>"; };
 		B178FA261B0FF47A00159F6F /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		B178FA281B10DCDD00159F6F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B18829111B1BC5FB0036359E /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		B18829131B1BC6040036359E /* SWRevealViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		B18829181B1BE7530036359E /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		B188291A1B1BF2000036359E /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B1A4CF441B12507300C83729 /* TweetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TweetViewController.swift; sourceTree = "<group>"; };
 		B1DA06EB1B11F3BD00345CA7 /* ComposeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -106,6 +113,7 @@
 		B178F9FF1B0FF17D00159F6F /* Twitter */ = {
 			isa = PBXGroup;
 			children = (
+				B18829101B1BC5B80036359E /* SWRevealViewController */,
 				B178FA251B0FF43600159F6F /* API */,
 				B178FA021B0FF17D00159F6F /* AppDelegate.swift */,
 				B13B556E1B11C88400A563EF /* TimelineViewController.swift */,
@@ -113,7 +121,9 @@
 				B13B55721B11CC0200A563EF /* TimelineTableViewCell.swift */,
 				B1DA06EB1B11F3BD00345CA7 /* ComposeViewController.swift */,
 				B178FA281B10DCDD00159F6F /* LoginViewController.swift */,
+				B18829181B1BE7530036359E /* MenuTableViewController.swift */,
 				B1A4CF441B12507300C83729 /* TweetViewController.swift */,
+				B188291A1B1BF2000036359E /* ProfileViewController.swift */,
 				B178FA061B0FF17D00159F6F /* Main.storyboard */,
 				B178FA091B0FF17D00159F6F /* Images.xcassets */,
 				B178FA0B1B0FF17D00159F6F /* LaunchScreen.xib */,
@@ -153,6 +163,15 @@
 				B178FA261B0FF47A00159F6F /* TwitterClient.swift */,
 			);
 			name = API;
+			sourceTree = "<group>";
+		};
+		B18829101B1BC5B80036359E /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B18829131B1BC6040036359E /* SWRevealViewController.h */,
+				B18829111B1BC5FB0036359E /* SWRevealViewController.m */,
+			);
+			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
 		E6FE0557BD13E54D96508BA1 /* Pods */ = {
@@ -301,9 +320,12 @@
 			files = (
 				B13B556D1B11BC5100A563EF /* User.swift in Sources */,
 				B178FA291B10DCDD00159F6F /* LoginViewController.swift in Sources */,
+				B18829191B1BE7530036359E /* MenuTableViewController.swift in Sources */,
 				B178FA271B0FF47A00159F6F /* TwitterClient.swift in Sources */,
 				B178FA031B0FF17D00159F6F /* AppDelegate.swift in Sources */,
 				B1A4CF451B12507300C83729 /* TweetViewController.swift in Sources */,
+				B188291B1B1BF2000036359E /* ProfileViewController.swift in Sources */,
+				B18829121B1BC5FB0036359E /* SWRevealViewController.m in Sources */,
 				B13B55731B11CC0200A563EF /* TimelineTableViewCell.swift in Sources */,
 				B13B556F1B11C88500A563EF /* TimelineViewController.swift in Sources */,
 				B1DA06EC1B11F3BD00345CA7 /* ComposeViewController.swift in Sources */,
